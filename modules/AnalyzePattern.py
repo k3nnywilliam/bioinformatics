@@ -28,7 +28,8 @@ def frequentWords(genome, k):
 
 
 def reverse_complement(pattern, result):
-    complements = {"A":"T", "C":"G", "G":"C", "T":"A"}
+    complements = {"A":"T", "C":"G", 
+            "G":"C", "T":"A"}
     rc = []
     
     for i in pattern:
@@ -38,8 +39,11 @@ def reverse_complement(pattern, result):
             print("We have an invalid genome data.")        
     result = rc[::-1]
     
-    with open(result, 'w') as filehandle:
-        filehandle.writelines("%s" % c for c in result)
+    try:
+       with open(result, 'w') as filehandle:
+           filehandle.writelines("%s" % c for c in result)
+    except (IOError, OSError) as e:
+        print(e)
     
     return result
 
@@ -52,6 +56,7 @@ def pattern_matching(genome, pattern):
     for i in range(0, gen_len - pattern_len+1):
         if genome[i:i+pattern_len] == pattern:
             starting_pos.append(i)
+    
     return starting_pos
 
 
@@ -100,7 +105,10 @@ def clump_finding(genome, k, L, t):
             
 
 def check_file_length(file):
-    with open(file, 'r') as f:
-        data = f.read().strip()
-        char_nums = len(data)
-        print(f"char_nums: {char_nums}")
+    try:
+        with open(file, 'r') as f:
+            data = f.read().strip()
+            char_nums = len(data)
+            print(f"char_nums: {char_nums}")
+    except (IOError, OSError) as e:
+        print(e)

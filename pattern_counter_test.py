@@ -14,14 +14,17 @@ def test2(sample_genome, sample_pattern):
     
 
 def main():
-   with open("data/dataset_2_7.txt", "r") as f:
-        lines = f.read().splitlines()
-        genome = lines[0]
-        pattern = lines[-1]
+    try:
+        with open("data/dataset_2_7.txt", "r") as f:
+            lines = f.read().splitlines()
+            genome = lines[0]
+            pattern = lines[-1]
         
-        start_time = time.time()
-        print(f"K-mer pattern count: {ap.patternCounter(genome, pattern)}")
-        print(f"Processing time took: {time.time() - start_time}s")
+            start_time = time.time()
+            print(f"K-mer pattern count: {ap.patternCounter(genome, pattern)}")
+            print(f"Processing time took: {time.time() - start_time}s")
+    except (IOError, OSError) as e:
+        print(e)
     
     
 if __name__ == "__main__":
